@@ -6,6 +6,8 @@ class Register extends LitElement {
       nombre: { type: String },
       origen: { type: String },
       precio: { type: Number },
+      cantidad: { type: Number },
+      total: { type: Number },
     };
   }
 
@@ -140,12 +142,24 @@ class Register extends LitElement {
       .caja-precio input {
         padding-left: 28px;
       }
+
+      .total-texto {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--color-marca, #6f4e37);
+        padding: 8px 0;
+      }
+      
     `;
   }
 
   constructor() {
     super();
-    this.nombre = this.origen = this.precio = "";
+    this.nombre = "";
+    this.origen = "";
+    this.precio = "";
+    this.cantidad = "";
+    this.total = 0;
   }
 
   handler(propiedad) {
@@ -162,12 +176,28 @@ class Register extends LitElement {
     }
   }
 
+  get totalPrecio() {
+
+    if (this.precio === "" || this.cantidad === "") {
+      return "0.00";
+    }
+
+    const precio = parseFloat(this.precio);
+    const cantidad = parseFloat(this.cantidad);
+
+    return (precio * cantidad).toFixed(2);
+
+  }
+
+
   register(event) {
     event.preventDefault();
     let data = {
       nombre: this.nombre,
       origen: this.origen,
       precio: Number(this.precio),
+      cantidad: Number(this.cantidad),
+      total: Number(this.totalPrecio),
     };
     let options = {
       detail: data,
@@ -199,6 +229,22 @@ class Register extends LitElement {
             <div class="caja-precio">
               <span class="signo-dolar">$</span>
               <input @input="${this.handler("precio")}" @blur="${this.formatearPrecio}" .value="${this.precio}" type="number" id="precio" name="precio" min="0" step="0.01"  required />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="cantidad">Cantidad:</label>
+            <div class="caja-precio">
+              <input @input="${this.handler("cantidad")}"  .value="${this.cantidad}" type="number" id="cantidad" name="cantidad" min="0" required />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="total">Total:</label>
+            <div class="caja-precio">
+              <div class = "total-texto">
+                $${this.totalPrecio}
+              </div>
             </div>
           </div>
 

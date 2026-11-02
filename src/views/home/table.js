@@ -79,13 +79,15 @@ class Table extends LitElement {
   render() {
     return html`
      <div class="contenedor-tabla">
-      <h1>Catálogo de Café Raíz</h1>
+      <h2>Total productos registrados</h2>
       <table>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Región de origen</th>
             <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -97,6 +99,10 @@ class Table extends LitElement {
               <td class="precio">
               $${Number(cafe.precio !== undefined ? cafe.precio : (cafe.age || 0)).toFixed(2)}
               </td>
+              <td>${cafe.cantidad}</td>
+              <td>
+              $${Number(cafe.total !== undefined ? cafe.total : (cafe.total || 0)).toFixed(2)}  
+          </td>
             </tr>
           `})}
         </tbody>
