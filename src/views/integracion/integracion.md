@@ -62,7 +62,7 @@ agregarProducto(event) {
 |---|---|---|---|---|
 | 1 | Fernando Camaton | Al registrar un producto la fila salía con celdas vacías o con `NaN`. | El formulario del equipo 4 y nuestra tabla usan campos distintos (`titulo`/`descripcion` contra `nombre`/`origen`) y el formulario no trae cantidad ni total. | Escribir el adaptador en el padre, sin tocar el archivo del otro equipo. |
 | 2 | Denilson Celi | Riesgo de error en consola con `customElements.define` por registrar dos veces `wc-form-register`. | Los dos equipos usamos la misma etiqueta y nuestro `home.js` y `src/index.js` cargan la nuestra. | En `integracion.js` importamos solo `register.js` del equipo 4 y nuestro `table.js`; `integracion.html` no carga la navegación. |
-| 3 | Fernando Camaton | La tabla no se actualizaba al agregar un dato. | Con `push` el arreglo es el mismo en memoria, y Lit solo vuelve a pintar si la propiedad recibe una referencia nueva. | Usar `this.lista = [...this.lista, fila]`. |
+| 3 | Farid Hinojoza | Al probar casos límite para la evaluación, el formulario permitía enviar precios como `NaN` o la URL de foto vacía sin validar. | En `register.js` (línea 43) convierten con `Number(...)` directo sin verificar `isNaN`, y en su repo no documentaban el formato esperado de los datos. | Se aislaron los pasos para reproducir el fallo con archivo y línea exactos, y se redactó el issue con la propuesta de mejora técnica en su repositorio. |
 | 4 | Andrés Pozo | No estaba claro qué datos traía el `detail` del evento. | El componente del otro equipo no tiene comentarios ni documentación del evento. | Leímos su código (`register.js`, líneas 39-52) y dejamos los campos explicados en el adaptador. |
 
 ## 5. Evaluación del componente externo
