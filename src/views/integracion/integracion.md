@@ -75,7 +75,7 @@ agregarProducto(event) {
 | Encapsulamiento | 5 | Sus estilos están dentro de `static styles` (líneas 4-32); no afectaron a nuestra página ni la nuestra a él. |
 | Reutilización | 4 | Lo usamos sin cambiar una línea y solo depende de `lit`. Le falta poder configurar cosas como los textos. |
 
-Issue abierto: [COMPLETAR: enlace al issue en el repositorio del equipo 4]
+Issue abierto: https://github.com/MezaJose12/Taller-Pic/issues/2#issue-6175522937
 
 ## 6. Uso de IA
 
