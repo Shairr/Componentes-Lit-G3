@@ -1,17 +1,16 @@
-import { LitElement, html, css } from "lit-element";
-import "../home/table";
-import "../../externos/equipo-4/register";
+import { LitElement, html, css } from "lit";
+import "../../externos/equipo-4/register.js";
+import "../home/table.js";
 
 class Integracion extends LitElement {
-    static get properties() {
-        return {
-            list: { type: Array },
-        };
-    }
+  static get properties() {
+    return {
+      lista: { type: Array },
+    };
+  }
 
-    //Estilos
-    static get styles() {
-        return css`
+  static get styles() {
+    return css`
       :host {
         display: block;
         max-width: 800px;
@@ -25,42 +24,41 @@ class Integracion extends LitElement {
         margin-bottom: 24px;
       }
     `;
-    }
+  }
 
-    constructor() {
-        super();
-        this.list = [];
-    }
+  constructor() {
+    super();
+    this.lista = [];
+  }
 
-    //Convierte el detail del Equipo 4 al formato de nuestra tabla
-    agregar(event) {
-        const producto = event.detail;
-        const precio = Number(producto.precio);
-        const cantidad = 1;
-        let fila = {
-            nombre: producto.titulo,
-            origen: producto.descripcion,
-            precio: precio,
-            cantidad: cantidad,
-            total: precio * cantidad,
-        };
+  agregarProducto(event) {
+    const producto = event.detail;
 
-        this.list = [...this.list, fila];
-    }
+    const precio = Number(producto.precio) || 0;
+    const cantidad = 1;
 
+    const fila = {
+      nombre: producto.titulo,
+      origen: producto.descripcion,
+      precio: precio,
+      cantidad: cantidad,
+      total: precio * cantidad,
+    };
 
+    this.lista = [...this.lista, fila];
+  }
 
-    render() {
-        return html`
+  render() {
+    return html`
       <h1>Integración: Formulario Equipo 4 + Tabla Café Raíz</h1>
 
-      <!-- Componente del Equipo 4 escuchando su evento específico -->
-      <wc-form-register @product-register="${this.agregar}"></wc-form-register>
-      
-      <!-- Nuestra tabla propia recibiendo la lista por propiedad -->
-      <wc-table .list="${this.list}"></wc-table>
+      <wc-form-register
+        @product-register="${this.agregarProducto}"
+      ></wc-form-register>
+
+      <wc-table .list="${this.lista}"></wc-table>
     `;
-    }
+  }
 }
 
-window.customElements.define("wc-integracion", Integracion);
+customElements.define("wc-integracion", Integracion);
